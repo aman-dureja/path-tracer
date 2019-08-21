@@ -12,8 +12,17 @@ direction (Ray (_,b)) = b
 pointAtParameter :: Ray -> Float -> V.Vec3
 pointAtParameter (Ray (a,b)) t = V.add a (V.scalarMul b t)
 
+hitSphere :: V.Vec3 -> Float -> Ray -> Bool
+hitSphere center radius r = let oc = V.sub (origin r) center
+                                a = V.dot (direction r) (direction r)
+                                b = (V.dot oc (direction r)) * 2.0
+                                c = (V.dot oc oc) - radius*radius
+                                discriminant = b*b - 4*a*c
+                                in discriminant > 0
+
 color :: Ray -> V.Vec3
 color r = let unitDirection = V.unitVector $ direction r
               t = 0.5 * (V.y unitDirection + 1.0)
-          in V.add (V.scalarMul (V.Vec3(1.0, 1.0, 1.0)) (1.0 - t)) (V.scalarMul (V.Vec3(0.5, 0.7, 1.0)) t) 
+          in if hitSphere (V.Vec3(0,0,-1)) 0.5 r then V.Vec3(1,0,0) 
+             else V.add (V.scalarMul (V.Vec3(1.0, 1.0, 1.0)) (1.0 - t)) (V.scalarMul (V.Vec3(0.5, 0.7, 1.0)) t) 
 
