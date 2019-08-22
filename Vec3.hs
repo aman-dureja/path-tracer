@@ -1,6 +1,6 @@
 module Vec3 where
 
-data Vec3 = Vec3 (Float, Float, Float)
+data Vec3 = Vec3 (Float, Float, Float) deriving (Eq)
 
 x :: Vec3 -> Float
 x (Vec3 (a,_,_)) = a
