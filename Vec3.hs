@@ -1,6 +1,6 @@
 module Vec3 where
 
-data Vec3 = Vec3 (Float, Float, Float) deriving (Eq)
+data Vec3 = Vec3 (Float, Float, Float) deriving (Eq, Show)
 
 x :: Vec3 -> Float
 x (Vec3 (a,_,_)) = a
@@ -61,4 +61,7 @@ dot (Vec3 (a1,b1,c1)) (Vec3 (a2,b2,c2)) = a1*a2 + b1*b2 + c1*c2
 
 cross :: Vec3 -> Vec3 -> Vec3
 cross (Vec3 (a1,b1,c1)) (Vec3 (a2,b2,c2)) = Vec3 (b1*c2 - c1*b2, -1*(a1*c2 - c1*a2), a1*b2 - b1*a2)
+
+transform :: (Float -> Float) -> Vec3 -> Vec3
+transform f (Vec3 (a,b,c)) = Vec3 (f a, f b, f c)
 
