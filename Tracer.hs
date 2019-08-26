@@ -50,7 +50,11 @@ main = do
     let nx = 200
         ny = 100
         ns = 100
-        camera = C.camera (V.Vec3(-2,2,1)) (V.Vec3(0,0,-1)) (V.Vec3(0,1,0)) 90 (fromIntegral nx / fromIntegral ny)
+        lookfrom = V.Vec3 (3, 3, 2)
+        lookat = V.Vec3 (0, 0, -1)
+        distToFocus = V.len (V.sub lookfrom lookat)
+        aperture = 2.0
+        camera = C.camera lookfrom lookat (V.Vec3(0,1,0)) 20 (fromIntegral nx / fromIntegral ny) aperture distToFocus
         randomNums = randoms $ mkStdGen 42 :: [Float]
         world = HL.hitableList [ S.sphere (V.Vec3(0,0,-1)) 0.5 (L.lambertian (V.Vec3(0.8,0.3,0.3))) 
                                , S.sphere (V.Vec3(0,-100.5,-1)) 100 (L.lambertian (V.Vec3(0.8,0.8,0.0)))
