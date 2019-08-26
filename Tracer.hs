@@ -50,7 +50,7 @@ main = do
     let nx = 200
         ny = 100
         ns = 100
-        camera = C.Camera {C.lowerLeftCorner=V.Vec3(-2,-1,-1), C.horizontal=V.Vec3(4,0,0), C.vertical=V.Vec3(0,2,0), C.origin=V.Vec3(0,0,0)}
+        camera = C.camera (V.Vec3(-2,2,1)) (V.Vec3(0,0,-1)) (V.Vec3(0,1,0)) 90 (fromIntegral nx / fromIntegral ny)
         randomNums = randoms $ mkStdGen 42 :: [Float]
         world = HL.hitableList [ S.sphere (V.Vec3(0,0,-1)) 0.5 (L.lambertian (V.Vec3(0.8,0.3,0.3))) 
                                , S.sphere (V.Vec3(0,-100.5,-1)) 100 (L.lambertian (V.Vec3(0.8,0.8,0.0)))
