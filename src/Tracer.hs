@@ -4,10 +4,7 @@ import qualified Sphere as S
 import qualified HitableList as HL
 import qualified Hitable as H 
 import qualified Camera as C
-import qualified Lambertian as L
-import qualified Metal as Metal
-import Dielectric (dielectric)
-import Control.Monad
+import qualified ShapesWorld as SW
 import System.Random
 
 color :: R.Ray -> HL.HitableList -> Int -> V.Vec3
@@ -54,13 +51,8 @@ main = do
         lookat = V.Vec3 (0, 0, -1)
         distToFocus = V.len (V.sub lookfrom lookat)
         aperture = 2.0
-        camera = C.camera lookfrom lookat (V.Vec3(0,1,0)) 20 (fromIntegral nx / fromIntegral ny) aperture distToFocus
+        camera = C.camera lookfrom lookat (V.Vec3(0,1,0)) 90 (fromIntegral nx / fromIntegral ny) aperture distToFocus
         randomNums = randoms $ mkStdGen 42 :: [Float]
-        world = HL.hitableList [ S.sphere (V.Vec3(0,0,-1)) 0.5 (L.lambertian (V.Vec3(0.8,0.3,0.3))) 
-                               , S.sphere (V.Vec3(0,-100.5,-1)) 100 (L.lambertian (V.Vec3(0.8,0.8,0.0)))
-                               , S.sphere (V.Vec3(1,0,-1)) 0.5 (Metal.metal (V.Vec3(0.8,0.6,0.2)) 0.3)
-                               , S.sphere (V.Vec3(-1,0,-1)) 0.5 (dielectric 1.5 (head randomNums)) 
-                               , S.sphere (V.Vec3(-1,0,-1)) (-0.45) (dielectric 1.5 ((head . tail) randomNums)) ]
     putStrLn $ "P3\n" ++ show nx ++ " " ++ show ny ++ "\n255"
-    putStr $ rgbRows (ny - 1) 0 nx ny ns world camera ((tail . tail) randomNums) 
+    putStr $ rgbRows (ny - 1) 0 nx ny ns SW.world camera ((tail . tail) randomNums) 
 

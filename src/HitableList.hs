@@ -2,7 +2,7 @@ module HitableList where
 import qualified Hitable as H
 import qualified Vec3 as V
 import qualified Ray as R
-import qualified Lambertian as L
+import qualified Material.Lambertian as L
 
 data HitableList = HitableList {
     items :: [H.Hitable],

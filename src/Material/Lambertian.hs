@@ -1,4 +1,4 @@
-module Lambertian where
+module Material.Lambertian where
 import qualified Vec3 as V
 import qualified Ray as R
 import qualified Hitable as H

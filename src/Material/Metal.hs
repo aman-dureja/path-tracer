@@ -1,4 +1,4 @@
-module Metal where
+module Material.Metal where
 import qualified Vec3 as V
 import qualified Ray as R
 import qualified Hitable as H

@@ -1,8 +1,8 @@
-module Dielectric where
+module Material.Dielectric where
 import qualified Ray as R
 import qualified Vec3 as V
 import qualified Hitable as H
-import Metal (reflect)
+import Material.Metal (reflect)
 
 refract :: V.Vec3 -> V.Vec3 -> Float -> Maybe V.Vec3
 refract v n niOverNt =
